@@ -1,14 +1,13 @@
-//
-//  FinalApp.swift
-//  Final
-//
-//  Created by Рамазан Даутбек   on 28.05.2025.
-//
-
+// PlanARApp.swift
 import SwiftUI
+import Firebase
 
 @main
 struct FinalApp: App {
+    init() {
+        FirebaseApp.configure()
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
