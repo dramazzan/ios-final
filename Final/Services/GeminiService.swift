@@ -1,10 +1,26 @@
 import Foundation
 
 class GeminiService {
-    private let apiKey = "AIzaSyA3gskqiD4MmXtf9QxHQzTWcl2hFBwa-fU"
+    private let apiKey: String
     private let endpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key="
+    
+    init() {
+        // Получаем API ключ из Info.plist
+        if let key = Bundle.main.infoDictionary?["API_KEY"] as? String {
+            self.apiKey = key
+        } else {
+            // Если ключ не найден, ставим пустую строку или можно кинуть фатальную ошибку
+            self.apiKey = ""
+            print("⚠️ Warning: API_KEY not found in Info.plist")
+        }
+    }
 
     func sendMessage(_ message: String, completion: @escaping (String?) -> Void) {
+        guard !apiKey.isEmpty else {
+            completion("API key is missing")
+            return
+        }
+        
         guard let url = URL(string: "\(endpoint)\(apiKey)") else {
             completion("Invalid URL")
             return
@@ -17,7 +33,6 @@ class GeminiService {
         let body: [String: Any] = [
             "contents": [
                 [
-                    // По твоему curl-запросу, role не передаётся — можно не указывать
                     "parts": [
                         ["text": message]
                     ]
@@ -43,7 +58,6 @@ class GeminiService {
                 return
             }
 
-            // Парсим JSON-ответ
             do {
                 if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
                    let candidates = json["candidates"] as? [[String: Any]],
