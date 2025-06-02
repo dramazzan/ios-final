@@ -1,4 +1,3 @@
-// ARCoordinator.swift
 import SwiftUI
 import ARKit
 import RealityKit
@@ -14,7 +13,6 @@ class ARCoordinator: NSObject, ObservableObject, ARSessionDelegate {
     func createTaskEntity(for task: Task) -> Entity {
         let entity = Entity()
         
-        // Create box mesh
         let mesh = MeshResource.generateBox(size: 0.1)
         let material = SimpleMaterial(color: UIColor(task.priority.color), isMetallic: false)
         let modelComponent = ModelComponent(mesh: mesh, materials: [material])
@@ -22,7 +20,6 @@ class ARCoordinator: NSObject, ObservableObject, ARSessionDelegate {
         entity.components.set(modelComponent)
         entity.components.set(CollisionComponent(shapes: [.generateBox(size: [0.1, 0.1, 0.1])]))
         
-        // Add text above the box
         let textMesh = MeshResource.generateText(
             task.title,
             extrusionDepth: 0.01,

@@ -1,4 +1,3 @@
-// FirebaseManager.swift
 import SwiftUI
 import Firebase
 import FirebaseFirestore

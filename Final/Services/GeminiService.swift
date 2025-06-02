@@ -5,11 +5,9 @@ class GeminiService {
     private let endpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key="
     
     init() {
-        // Получаем API ключ из Info.plist
         if let key = Bundle.main.infoDictionary?["API_KEY"] as? String {
             self.apiKey = key
         } else {
-            // Если ключ не найден, ставим пустую строку или можно кинуть фатальную ошибку
             self.apiKey = ""
             print("⚠️ Warning: API_KEY not found in Info.plist")
         }

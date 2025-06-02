@@ -55,7 +55,6 @@ struct TaskRowView: View {
     @ObservedObject var firebaseManager: FirebaseManager
     @Binding var selectedTask: Task?
     
-    // Вычисляемое свойство для получения актуальной задачи из массива
     private var currentTask: Task {
         return firebaseManager.tasks.first { $0.id == task.id } ?? task
     }

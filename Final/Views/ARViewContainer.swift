@@ -15,7 +15,6 @@ struct ARViewContainer: UIViewRepresentable {
         arView.session.run(config)
         arView.session.delegate = context.coordinator
 
-        // Добавляем жесты
         let tapGesture = UITapGestureRecognizer(target: context.coordinator, action: #selector(context.coordinator.handleTap(_:)))
         arView.addGestureRecognizer(tapGesture)
 
@@ -74,7 +73,6 @@ struct ARViewContainer: UIViewRepresentable {
         var minScale: Float = 0.5
         var maxScale: Float = 3.0
 
-        // Поворот
         var currentRotation: Float = 0.0
 
         func createTaskEntity(for task: Task) -> Entity {
@@ -172,7 +170,7 @@ struct ARViewContainer: UIViewRepresentable {
                 for entity in placedTasks.values {
                     entity.transform.rotation *= simd_quatf(angle: deltaRotation, axis: [0, 1, 0])
                 }
-                gesture.rotation = 0 // Сбросить поворот после применения
+                gesture.rotation = 0
             default:
                 break
             }
@@ -191,14 +189,12 @@ struct ARViewContainer: UIViewRepresentable {
     }
 }
 
-// MARK: - Extensions
 extension simd_float4x4 {
     var translation: SIMD3<Float> {
         return SIMD3<Float>(columns.3.x, columns.3.y, columns.3.z)
     }
 }
 
-// MARK: - Дополнительный SwiftUI View для управления зумом
 struct ARZoomControls: View {
     let coordinator: ARViewContainer.ARViewCoordinator
 

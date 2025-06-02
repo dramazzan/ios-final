@@ -40,7 +40,6 @@ struct GeminiChatView: View {
                     .padding(.top)
                 }
                 .onChange(of: messages.count) { _ in
-                    // Автопрокрутка вниз
                     if let last = messages.last {
                         scrollView.scrollTo(last.id, anchor: .bottom)
                     }
