@@ -36,7 +36,7 @@ struct TaskListView: View {
                 AddTaskView(firebaseManager: firebaseManager)
             }
             .sheet(isPresented: $showingChat) {
-                GeminiChatView() // Переход в чат
+                GeminiChatView()
             }
         }
     }

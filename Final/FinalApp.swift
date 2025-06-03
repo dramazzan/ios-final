@@ -1,4 +1,3 @@
-// PlanARApp.swift
 import SwiftUI
 import Firebase
 

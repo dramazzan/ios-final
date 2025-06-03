@@ -7,6 +7,7 @@ struct AddTaskView: View {
     @State private var title = ""
     @State private var description = ""
     @State private var priority: Task.Priority = .medium
+    @State private var showAlert = false
     
     var body: some View {
         NavigationView {
@@ -29,8 +30,15 @@ struct AddTaskView: View {
                     presentationMode.wrappedValue.dismiss()
                 },
                 trailing: Button("Сохранить") {
-                    saveTask()
+                    if title.isEmpty {
+                         showAlert = true
+                     } else {
+                         saveTask()
+                     }
                 }
+                    .alert(isPresented: $showAlert) {
+                        Alert(title: Text("Ошибка"), message: Text("Название не может быть пустым"), dismissButton: .default(Text("Ок")))
+                    }
                 .disabled(title.isEmpty)
             )
         }
